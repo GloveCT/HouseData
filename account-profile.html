@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Tables</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            店東/長資料管理作業
+                        </div>
+                    </form>
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    <!--<uc2:WebUserControl_UserSession ID="UserSession" runat="server" />-->
+                                    <%--                                        您好！ 許GG(52370)
+                                    <br />
+                                    板橋江子翠捷運四店加盟店(00000)--%>
+                                </span>
+                                <%--<img class="img-profile rounded-circle" src="img/undraw_profile.svg">--%>
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <div class="accordion" id="accordionFilter">
+                        <div class="card border-warning ">
+                            <div class="card-header bg-warning" id="headerFilter">
+                                <h5 class="mb-0">
+                                    <button class="btn text-white" type="button" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="true" aria-controls="collapseFilter">
+                                        查詢條件
+
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseFilter" class="collapse show" aria-labelledby="headerFilter" data-parent="#accordionFilter">
+                                <div class="card-body">
+
+                                    <div class="needs-validation" novalidate>
+
+                                        <div class="form-row">
+                                            <div class="col-md-12 mb-12">
+
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <input class="btn btn-primary" id="BTN_Search1" type="button" value="查詢">
+                                                            <!--<asp:UpdatePanel ID="upBTN_Search1" runat="server">
+                                                                <ContentTemplate>
+                                                                    <asp:Button ID="BTN_Search1" class="btn btn-primary" runat="server" OnClick="BTN_Search_Click" Text="查詢" />
+
+                                                                </ContentTemplate>
+                                                                <%--<Triggers>
+                                                                    <asp:PostBackTrigger ControlID="BTN_Search1" />
+                                                                </Triggers>--%>
+                                                            </asp:UpdatePanel>-->
+
+                                                        </td>
+                                                        <td>
+                                                            <!--<asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="upBTN_Search1" DisplayAfter="1">
+                                                                <ProgressTemplate>
+                                                                    <div class="spinner-border text-primary"></div>
+                                                                </ProgressTemplate>
+                                                            </asp:UpdateProgress>-->
+                                                        </td>
+                                                        <td>
+                                                            <input class="btn btn-success" id="BTN_PrintList" type="button" value="匯出清單">
+                                                            <!--<asp:UpdatePanel ID="upFuncBtn" runat="server">
+                                                                <ContentTemplate>
+                                                                    <asp:Button ID="BTN_PrintList" class="btn btn-success" runat="server" OnClick="BTN_PrintList_Click" Text="匯出清單" />
+                                                                </ContentTemplate>
+                                                                <Triggers>
+                                                                    <asp:PostBackTrigger ControlID="BTN_PrintList" />
+                                                                </Triggers>
+                                                            </asp:UpdatePanel>-->
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-12 mb-12">
+                                                <label for="KW">關鍵字</label>
+                                                <input class="form-control" id="KW" type="text" placeholder="姓名/店名">
+                                                <!--<label for="<%=TB_house_id.ClientID %>">關鍵字</label>
+                                                <asp:TextBox ID="TB_house_id" runat="server" name="TB_house_id" onkeyup="findColors();" class="form-control" placeholder="流水號/委託契約編號/案名/所有權人姓名...等"></asp:TextBox>-->
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12 mb-12">
+                                                <label for="CB_Status0">區域中心</label>
+                                                <div>
+                                                    <div class="custom-checkbox form-check form-check-inline">
+                                                        <input type="checkbox" class="form-check-input" id="C002">
+                                                        <label class="custom-control-label" for="C002">北一區</label>
+                                                    </div><div class="custom-checkbox form-check form-check-inline">
+                                                        <input type="checkbox" class="form-check-input" id="C002">
+                                                        <label class="custom-control-label" for="C002">北一區</label>
+                                                    </div><div class="custom-checkbox form-check form-check-inline">
+                                                        <input type="checkbox" class="form-check-input" id="C002">
+                                                        <label class="custom-control-label" for="C002">北一區</label>
+                                                    </div><div class="custom-checkbox form-check form-check-inline">
+                                                        <input type="checkbox" class="form-check-input" id="C002">
+                                                        <label class="custom-control-label" for="C002">北一區</label>
+                                                    </div><div class="custom-checkbox form-check form-check-inline">
+                                                        <input type="checkbox" class="form-check-input" id="C002">
+                                                        <label class="custom-control-label" for="C002">北一區</label>
+                                                    </div><div class="custom-checkbox form-check form-check-inline">
+                                                        <input type="checkbox" class="form-check-input" id="C002">
+                                                        <label class="custom-control-label" for="C002">北一區</label>
+                                                    </div><div class="custom-checkbox form-check form-check-inline">
+                                                        <input type="checkbox" class="form-check-input" id="C002">
+                                                        <label class="custom-control-label" for="C002">北一區</label>
+                                                    </div><div class="custom-checkbox form-check form-check-inline">
+                                                        <input type="checkbox" class="form-check-input" id="C002">
+                                                        <label class="custom-control-label" for="C002">北一區</label>
+                                                    </div><div class="custom-checkbox form-check form-check-inline">
+                                                        <input type="checkbox" class="form-check-input" id="C002">
+                                                        <label class="custom-control-label" for="C002">北一區</label>
+                                                    </div><div class="custom-checkbox form-check form-check-inline">
+                                                        <input type="checkbox" class="form-check-input" id="C002">
+                                                        <label class="custom-control-label" for="C002">北一區</label>
+                                                    </div>
+                                                </div>
+
+                                                <!--<div>
+                                                    <div class="custom-checkbox form-check form-check-inline">
+                                                        <asp:CheckBox ID="CB_Status0" runat="server" Checked="True" />
+                                                        <label class="custom-control-label" for="<%=CB_Status0.ClientID %>">暫存</label>
+                                                    </div>
+
+                                                    <div class="custom-checkbox form-check form-check-inline">
+                                                        <asp:CheckBox ID="CB_Status1" runat="server" Checked="True" />
+                                                        <label class="custom-control-label" for="<%=CB_Status1.ClientID %>">委託中</label>
+                                                    </div>
+                                                    <div class="custom-checkbox form-check form-check-inline">
+                                                        <asp:CheckBox ID="CB_Status2" runat="server" />
+                                                        <label class="custom-control-label" for="<%=CB_Status2.ClientID %>">終止</label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div>
+                                                    <div class="custom-checkbox form-check form-check-inline">
+                                                        <asp:CheckBox ID="CB_Status3" runat="server" />
+                                                        <label class="custom-control-label" for="<%=CB_Status3.ClientID %>">逾期</label>
+                                                    </div>
+
+                                                    <div class="custom-checkbox form-check form-check-inline">
+                                                        <asp:CheckBox ID="CB_Status4" runat="server" />
+                                                        <label class="custom-control-label" for="<%=CB_Status4.ClientID %>">成交</label>
+                                                    </div>
+                                                    <div class="custom-checkbox form-check form-check-inline">
+
+                                                        <asp:CheckBox ID="CB_Status5" runat="server" />
+                                                        <label class="custom-control-label" for="<%=CB_Status5.ClientID %>">VR720度導覽系統</label>
+                                                    </div>
+                                                </div>-->
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-12 mb-12">
+                                                <div class="table-responsive">
+
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">人</th>
+                                                                <th scope="col">店</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">59463</th>
+                                                                <td>賴輝鴻</td>
+                                                                <td>延平站前加盟店(1), 北大加盟店(1), 南大加盟店(1), 新竹關埔加盟店(1), 新竹高鐵加盟店(1), 竹北六家加盟店(1), </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">52311</th>
+                                                                <td>王炳祺</td>
+                                                                <td><span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>師大加盟店<br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">6237</th>
+                                                                <td>蘇俊逸</td>
+                                                                <td>
+                                                                    <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>復興長安加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>延平站前加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>竹科加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>北大加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>南大加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>光復加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>新竹關埔加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>新竹關東站前加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>長冠世博加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>長冠東大加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>縣政加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>新竹高鐵加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>竹北台大加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>竹北六家加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>高鐵站前加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>竹北成功加盟店<br /> <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>竹北莊敬加盟店<br />
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <!--<asp:UpdatePanel ID="upDataTable" runat="server">
+                                                        <ContentTemplate>
+                                                            <asp:GridView ID="GridView1" runat="server" DataKeyNames="House_ID"
+                                                                          DataSourceID="GridViewDataSource1"
+                                                                          OnRowDataBound="GridView1_RowDataBound"
+                                                                          OnRowCommand="GridView1_RowCommand"
+                                                                          OnPageIndexChanging="GridView1_PageIndexChanging"
+                                                                          AllowPaging="True" AutoGenerateColumns="False"
+                                                                          CellPadding="0" GridLines="Vertical"
+                                                                          PageSize="20" AllowSorting="True" OnSorting="TaskGridView_Sorting"
+                                                                          class="table table-bordered">
+                                                                <PagerSettings Position="TopAndBottom" Mode="NumericFirstLast" PageButtonCount="20" />
+                                                                <RowStyle Font-Size="11px" />
+                                                                <Columns>
+                                                                    <asp:BoundField DataField="rank" HeaderText="NO." />
+                                                                    <asp:TemplateField HeaderText="功能區">
+                                                                        <ItemTemplate>
+                                                                            <asp:DropDownList ID="DropDownList1" runat="server">
+                                                                                <asp:ListItem Value="X">不發送</asp:ListItem>
+                                                                                <asp:ListItem Value="0">當天</asp:ListItem>
+                                                                                <asp:ListItem Value="1">一天前</asp:ListItem>
+                                                                                <asp:ListItem Value="2">二天前</asp:ListItem>
+                                                                                <asp:ListItem Value="3">三天前</asp:ListItem>
+                                                                            </asp:DropDownList>
+                                                                            <asp:Button ID="btnAply" runat="server" CommandArgument="1" CommandName="btnAply" CssClass="black_button00" OnClientClick="return confirm('確定申請？');" Text="變更申請" />
+                                                                            &nbsp;
+                                                                            <asp:Button ID="btnRechk" runat="server" CommandArgument="1" CommandName="btnRechk" OnClientClick="return confirm('確定核准？');" Text="核准" Visible="true" />
+                                                                        </ItemTemplate>
+                                                                    </asp:TemplateField>
+
+
+                                                                    <asp:BoundField DataField="house_ID" HeaderText="編號" />
+
+                                                                </Columns>
+                                                                <PagerStyle BackColor="#999999" ForeColor="#000099" HorizontalAlign="Center" CssClass="PagerCss" BorderColor="#333333" BorderWidth="1px" Height="26px" />
+                                                                <AlternatingRowStyle BackColor="#CCCCCC" />
+                                                            </asp:GridView>
+
+                                                            <%--<input type="image" name="ctl04" src="images/captain_recommand2.gif" onclick="openImg('http://av.ctis.com.tw/production/上傳位置/project2/house_photo/202301/1812419-1b.jpg');" data-toggle="modal" data-target="#myModal" />--%>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>-->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-xl-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card mb-4">
+                                                <div class="card-header">
+                                                    人事資料(加盟店維護)
+
+                                                </div>
+                                                <div class="card-body">
+
+                                                    <div class="mb-3 text-center">
+                                                        <img class="img-account-profile rounded-circle mb-2" src="https://www.cthouse.com.tw/images/fake_120x120.jpg" alt="">
+                                                        <!--<div class="small font-italic text-muted mb-4">洪兆君</div>-->
+                                                        <!--<button class="btn btn-primary" type="button">Upload new image</button>-->
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-6 col-md-6">
+                                                            <label class="small mb-1" for="cname">中文</label>
+                                                            <input class="form-control-plaintext" id="cname" type="text" value="洪兆君" readonly>
+                                                        </div>
+
+                                                        <div class="col-6 col-md-6">
+                                                            <label class="small mb-1" for="ename">英文</label>
+                                                            <input class="form-control-plaintext" id="ename" type="text" value="robert" readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row gx-3 mb-3">
+
+                                                        <div class="col-6 col-md-6">
+                                                            <label class="small mb-1" for="gender">性別</label>
+                                                            <input class="form-control-plaintext" id="gender" type="text" value="男" readonly>
+                                                        </div>
+
+                                                        <div class="col-6 col-md-6">
+                                                            <label class="small mb-1" for="birthday">出生日期</label>
+                                                            <input class="form-control-plaintext" id="birthday" type="text" value="1986.01.01" readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row gx-3 mb-3">
+
+                                                        <div class="col-6 col-md-6">
+                                                            <label class="small mb-1" for="jobtitle">職稱</label>
+                                                            <input class="form-control-plaintext" id="jobtitle" type="text" value="店長" readonly>
+                                                        </div>
+
+                                                        <div class="col-6 col-md-6">
+                                                            <label class="small mb-1" for="marital">婚姻狀況</label>
+                                                            <input class="form-control-plaintext" id="marital" type="text" value="已婚" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card mb-4">
+                                                <div class="card-header">
+                                                    加盟店記錄
+                                                </div>
+                                                <div class="card-body">
+
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>復興長安加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>延平站前加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>竹科加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>北大加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>南大加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>光復加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>新竹關埔加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>新竹關東站前加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>長冠世博加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>長冠東大加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>縣政加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>新竹高鐵加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>竹北台大加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>竹北六家加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>高鐵站前加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-danger">離職</span>竹北成功加盟店<br />
+                                                    <span class="badge badge-primary">店東</span><span class="badge badge-success">在職</span>竹北莊敬加盟店<br />
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--<div class="col-xl-3">
+
+
+                                </div>-->
+
+                                <div class="col-xl-9">
+
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card mb-4">
+                                                <div class="card-header">
+
+                                                    <div class="form-check form-switch">
+                                                        <div class="row">
+                                                            <div class="col-4 col-md-5">
+                                                                <!--<label class="small mb-1" for="cname">中文</label>-->
+                                                                <input class="form-control" id="item" type="text" placeholder="項目">
+                                                            </div>
+
+                                                            <div class="col-5 col-md-5">
+                                                                <!--<label class="small mb-1" for="ename">英文</label>-->
+                                                                <input class="form-control" id="ename" type="text" placeholder="說明">
+                                                            </div>
+                                                            <div class="col-3 col-md-2">
+                                                                <button class="btn btn-primary" type="button">新增</button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col" class="col-1 col-sm-1 ">#</th>
+                                                                <th scope="col" class="col-3 col-sm-4 ">項目</th>
+                                                                <th scope="col" class="col-4 col-sm-4">說明</th>
+                                                                <th scope="col" class="col-4 col-sm-3">動作</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>運動</td>
+                                                                <td>高爾夫</td>
+                                                                <td>
+                                                                    <button class="btn btn-sm btn-success" type="button">修改</button>
+                                                                    <button class="btn btn-sm btn-danger" type="button">刪除</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">2</th>
+                                                                <td><input class="form-control" id="item" type="text" value="飲食"></td>
+                                                                <td><input class="form-control" id="ename" type="text" value="辣"></td>
+                                                                <td>
+                                                                    <button class="btn btn-sm btn-primary" type="button">確定</button>
+                                                                    <button class="btn btn-sm btn-secondary" type="button">取消</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">3</th>
+                                                                <td>興趣</td>
+                                                                <td>收集騰本</td>
+                                                                <td>
+                                                                    <span data-toggle="tooltip" title="不是此帳號新增">無法操作</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Main Content -->
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2024</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/datatables-demo.js"></script>
+        <script type="text/javascript">
+            var pageLoad = function (sender, args) {
+                $('.custom-checkbox input[type=checkbox], .custom-radio input[type=radio]').addClass("custom-control-input");
+                $('.custom-radio label').addClass("custom-control-label");
+
+                $('.form-check input[type=checkbox]').addClass("form-check-input");
+                $('.form-check label').addClass("form-check-label");
+            }
+
+            $(document).ready(function () {
+                $('.custom-checkbox input[type=checkbox], .custom-radio input[type=radio]').addClass("custom-control-input");
+                $('.custom-radio label').addClass("custom-control-label");
+
+                $('.form-check input[type=checkbox]').addClass("form-check-input");
+                $('.form-check label').addClass("form-check-label");
+            });
+
+
+            function ShowCreateSell(href) {
+                window.open(href, '_blank');
+
+                //var gt = unescape('%3e');
+                //var popup = null;
+                //var over = "Launch Pop-up Navigator";
+                //var x = (screen.width - 1024) / 2;
+                //var y = (screen.height - 900) / 2;
+                //popup = window.open('', '_blank', 'width=1124 ,height=850,resizable=1,scrollbars=1,scrollbar=yes,status=1,left=' + x + ',top=' + y + '');
+                //if (popup != null) {
+                //    if (popup.opener == null) {
+                //        popup.opener = self;
+                //    }
+                //    popup.location.href = href;
+                //    //popup.location.href = 'https://www.ctis.com.tw/house/' + href;
+                //}
+
+            }
+
+            function openImg(img_link) {
+
+
+
+
+                $("#imgHouse").attr("src", img_link);
+                //$('#myModal').modal('show');
+                return false;
+            }
+        </script>
+</body>
+
+</html>
